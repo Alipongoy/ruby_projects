@@ -1,11 +1,13 @@
 require 'net/http'
+require 'pry'
 
 class Website
-
+	attr_accessor :item_array
 	# This initializes @website if URI is provided.
 	# PARAMETERS: STRING uri 
 	# RETURNS: N/A
 	def initialize(uri = "")
+		@parsed_website = String.new()
 		if uri != ""
 			self.uri_to_string(uri) 
 		else
@@ -23,23 +25,55 @@ class Website
 
 	# This selects only the useful selection of information.
 	def parse_website
-		puts @website
+		encountered_beginning = false
 		@website.each_line do |code_line|
-			puts code_line
+			if code_line.include?('<ul class="productGroup col-xs-12 no-padding">') 
+				encountered_beginning = true
+			end
+
+			if encountered_beginning == true
+				if code_line.include?('</ul>')
+					encountered_beginning = false
+				end
+				@parsed_website << code_line
+			end
 		end
 	end
 
+	# This parses a parsed_website and turns it into parsed items.
+	def parse_items
+		# Turn each li into individual objects
+		encountered_beginning = false
+		parsed_item = ""
+		@item_array = []
+
+		@parsed_website.each_line do |code_line|
+			if code_line.include?('<li class="product col-xs-6 col-sm-4 product-grid-ad">') 
+				encountered_beginning = true
+			end
+
+			if encountered_beginning == true
+				if code_line.include?('</li>')
+					encountered_beginning = false
+					@item_array.push(parsed_item)
+					parsed_item = ""
+				end
+				parsed_item << code_line
+			end
+		end
+	end
+	
 	#// This writes a string website to a text_file database.
 	#// PARAMETERS: N/A
 	#// RETURNS: N/A
 	def write_to_file()
-		text_file = File.open("output.txt", "w") do |f|
-			f << website
+		text_file = File.open("output.html", "w") do |f|
+			f << @parsed_website
 		end
-		text_file.close()
 	end
 end
 
-american_apparel = Website.new()
-american_apparel.uri_to_string("http://store.americanapparel.net/en/men-s-new_cat33157")
+american_apparel = Website.new('http://store.americanapparel.net/en/men-s-new_cat33157')
 american_apparel.parse_website
+american_apparel.write_to_file
+american_apparel.parse_items
