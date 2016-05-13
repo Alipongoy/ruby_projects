@@ -67,9 +67,11 @@ class Website
 	
 	# This sorts out items in the @item_array
 	def sort_items
-		
+		# This selects each item in item_array
+		@item_array.each do |item|
+			puts item.class
+		end
 	end
-end	
 
 	# This writes a string website to a text_file database.
 	# PARAMETERS: N/A
