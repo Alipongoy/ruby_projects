@@ -70,12 +70,16 @@ class Website
 		@parsed_item_array = []
 		@item_array.each do |item|
 			encountered_beginning = false
+			next_counter = 2
 			item = item.split("\n")
 			item.each do |code_line|
 				if code_line.include?('<div class="name">')
-					encountered_beginning = true
-					item_enum = item.to_enum
-					2.times do {item_enum.next()}	
+					if next_counter != 0
+						next_counter -= 1
+						next
+					elsif next_counter == 0
+						puts "This should be the name:#{code_line}"
+					end
 				end
 			end
 		end
