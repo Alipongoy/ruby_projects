@@ -67,23 +67,9 @@ class Website
 	
 	# This sorts out items in the @item_array
 	def sort_items
-		@parsed_item_array = []
-		@item_array.each do |item|
-			encountered_beginning = false
-			next_counter = 2
-			item = item.split("\n")
-			item.each do |code_line|
-				if code_line.include?('<div class="name">')
-					if next_counter != 0
-						next_counter -= 1
-						next
-					elsif next_counter == 0
-						puts "This should be the name:#{code_line}"
-					end
-				end
-			end
-		end
-	end	
+		
+	end
+end	
 
 	# This writes a string website to a text_file database.
 	# PARAMETERS: N/A
