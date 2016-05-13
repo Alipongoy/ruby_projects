@@ -1,8 +1,7 @@
 require 'net/http'
-require 'pry'
 
 class Website
-	attr_accessor :item_array
+	attr_accessor :item_array 
 	# This initializes @website if URI is provided.
 	# PARAMETERS: STRING uri 
 	# RETURNS: N/A
@@ -41,6 +40,9 @@ class Website
 	end
 
 	# This parses a parsed_website and turns it into parsed items.
+	# PARAMETERS: N/A
+	# RETURNS: N/A
+	# MUTATES: @item_array
 	def parse_items
 		# Turn each li into individual objects
 		encountered_beginning = false
@@ -63,9 +65,25 @@ class Website
 		end
 	end
 	
-	#// This writes a string website to a text_file database.
-	#// PARAMETERS: N/A
-	#// RETURNS: N/A
+	# This sorts out items in the @item_array
+	def sort_items
+		@parsed_item_array = []
+		@item_array.each do |item|
+			encountered_beginning = false
+			item = item.split("\n")
+			item.each do |code_line|
+				if code_line.include?('<div class="name">')
+					encountered_beginning = true
+					item_enum = item.to_enum
+					2.times do {item_enum.next()}	
+				end
+			end
+		end
+	end	
+
+	# This writes a string website to a text_file database.
+	# PARAMETERS: N/A
+	# RETURNS: N/A
 	def write_to_file()
 		text_file = File.open("output.html", "w") do |f|
 			f << @parsed_website
@@ -73,7 +91,16 @@ class Website
 	end
 end
 
+class Product
+	attr_accessor :name, :price
+	def initialize(user_name, user_price)
+		@name = user_name
+		@price = user_price
+	end
+end
+
 american_apparel = Website.new('http://store.americanapparel.net/en/men-s-new_cat33157')
 american_apparel.parse_website
 american_apparel.write_to_file
 american_apparel.parse_items
+american_apparel.sort_items
