@@ -69,7 +69,9 @@ class Website
 	def sort_items
 		# This selects each item in item_array
 		@item_array.each do |item|
-			puts item.class
+			individual_item_array = item.split("\n")
+			puts x = individual_item_array.index('<div class="name">')
+			puts individual_item_array[x+2]
 		end
 	end
 
