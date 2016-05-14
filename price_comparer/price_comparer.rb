@@ -83,12 +83,21 @@ class Website
 		end
 	end
 
+	# This prints the available inventory of the website.
+	def print_inventory
+		@product_array.each do |product|
+			puts "Name: #{product.name}\nPrice: #{product.price}"
+		end
+	end
+
 	# This writes a string website to a text_file database.
 	# PARAMETERS: N/A
 	# RETURNS: N/A
 	def write_to_file
-		text_file = File.open("output.html", "w") do |f|
-			f << @parsed_website
+		text_file = File.open("output.txt", "w") do |f|
+			@product_array.each do |product|
+			 f << "Name: #{product.name}\nPrice: #{product.price}\n"
+			end
 		end
 	end
 end
@@ -103,6 +112,6 @@ end
 
 american_apparel = Website.new('http://store.americanapparel.net/en/men-s-new_cat33157')
 american_apparel.parse_website
-american_apparel.write_to_file
 american_apparel.parse_items
 american_apparel.sort_items
+american_apparel.write_to_file
