@@ -42,7 +42,7 @@ Name: Printed Flex Fleece Printed Zip Hoodie
 Price: $50.00
 Name: California Fleece Raglan
 Price: $40.00
-Name: California Fleece<br>Zip Hoodie
+Name: California Fleece Zip Hoodie
 Price: $41.00
 Name: 50/50 Ringer Tee
 Price: $24.00
@@ -52,11 +52,11 @@ Name: California Fleece Gym Short
 Price: $32.00
 Name: Tri-Blend Pocket Short Sleeve T-Shirt
 Price: $24.00
-Name: Tri-Blend<br>Short Sleeve Deep V-Neck
+Name: Tri-Blend Short Sleeve Deep V-Neck
 Price: $24.00
 Name: Tri-Blend Tank
 Price: $20.00
-Name: Fine Jersey<br>Pocket Short Sleeve T-Shirt
+Name: Fine Jersey Pocket Short Sleeve T-Shirt
 Price: $22.00
 Name: Poly-Cotton Short Sleeve V-Neck
 Price: $22.00

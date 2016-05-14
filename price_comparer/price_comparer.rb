@@ -74,6 +74,7 @@ class Website
 			# This finds the name of the object
 			name_index = individual_item_array.index('<div class="name">')
 			name = individual_item_array[name_index+2]
+			name.sub!("<br>"," ")
 			# This finds the price of the object
 			price_index = individual_item_array.index('<div class="pricing">')
 			price = individual_item_array[price_index+2]
