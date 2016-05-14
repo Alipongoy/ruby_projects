@@ -1,7 +1,7 @@
 require 'net/http'
 
 class Website
-	attr_accessor :item_array 
+	attr_accessor :item_array
 	# This initializes @website if URI is provided.
 	# PARAMETERS: STRING uri 
 	# RETURNS: N/A
@@ -67,18 +67,26 @@ class Website
 	
 	# This sorts out items in the @item_array
 	def sort_items
+		@product_array = []
 		# This selects each item in item_array
 		@item_array.each do |item|
 			individual_item_array = item.split("\n")
-			puts x = individual_item_array.index('<div class="name">')
-			puts individual_item_array[x+2]
+			# This finds the name of the object
+			name_index = individual_item_array.index('<div class="name">')
+			name = individual_item_array[name_index+2]
+			# This finds the price of the object
+			price_index = individual_item_array.index('<div class="pricing">')
+			price = individual_item_array[price_index+2]
+			# This creates the product object
+			product_holder = Product.new(name, price)
+			@product_array.push(product_holder)
 		end
 	end
 
 	# This writes a string website to a text_file database.
 	# PARAMETERS: N/A
 	# RETURNS: N/A
-	def write_to_file()
+	def write_to_file
 		text_file = File.open("output.html", "w") do |f|
 			f << @parsed_website
 		end
